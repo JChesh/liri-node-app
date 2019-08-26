@@ -11,12 +11,10 @@ var query = process.argv.slice(3).join(" ");
 
 liriStart(command, query);
 
-// liriStart(comand, query)
+
 function liriStart(service, search) {
-    // switch (command)
     switch (service) {
         case 'movie-this':
-            // return omdb(query)
             return omdb(search)
         case 'spotify-this-song':
             return song(search)
@@ -26,7 +24,7 @@ function liriStart(service, search) {
             return readFunc();
     }
 }
-// val === search === query
+
 function song(val) {
     console.log("Running Spotify " + val)
     spotify.search({
@@ -38,4 +36,13 @@ function song(val) {
         }
         console.log(data.tracks.items[0]);
     });
+}
+
+function omdb(val) {
+    let queryUrl = "http://www.omdbapi.com/?t=" + val + "&y=&plot=short&apikey=trilogy";
+
+    axios.get(queryUrl)
+        .then(function (response) {
+            console.log(response.data)
+        })
 }
