@@ -11,7 +11,9 @@ var query = process.argv.slice(3).join(" ");
 
 liriStart(command, query);
 
+// liriStart(comand, query)
 function liriStart(service, search) {
+    // switch (command)
     switch (service) {
         case 'movie-this':
             // return omdb(query)
@@ -23,4 +25,17 @@ function liriStart(service, search) {
         case 'do-what-it-says':
             return readFunc();
     }
+}
+// val === search === query
+function song(val) {
+    console.log("Running Spotify " + val)
+    spotify.search({
+        type: 'track',
+        query: val
+    }, function (err, data) {
+        if (err) {
+            return console.log('Error: ' + err);
+        }
+        console.log(data.tracks.items[0]);
+    });
 }
