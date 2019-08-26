@@ -46,3 +46,26 @@ function omdb(val) {
             console.log(response.data)
         })
 }
+
+function getConcert(val) {
+    console.log("Running Concert " + val)
+    let query = "https://rest.bandsintown.com/artists/" + val + "/events?app_id=codingbootcamp"
+
+    axios({
+        method: "GET",
+        url: query
+    }).then(function (apiResponse) {
+        for (var i = 0; i < apiResponse.data.length; i++) {
+            var location = apiResponse.data[i].venue.city + ", ";
+            location += apiResponse.data[i].venue.region;
+            location += " (" + apiResponse.data[i].venue.country + ")";
+            var showData = [
+                "Venue:\t\t" + apiResponse.data[i].venue.name,
+                "Location:\t" + location,
+                "Date:\t\t" + apiResponse.data[i].datetime,moment().format('MMMM Do YYYY, h:mm:ss a'),
+                "==========================================="
+            ].join("\n");
+            console.log(showData);
+        }
+    })
+}
